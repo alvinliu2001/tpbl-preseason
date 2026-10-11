@@ -106,10 +106,10 @@
             { id: 'G7', no: 7, date: '2026-10-11', time: '14:30', away: '國王', home: '攻城獅' }
         ];
         const ARENA = '和平籃球館';
-        const BROADCAST = 'MOMOTV、博斯運動二台、TPBL 官方 YouTube、DAZN、緯來電視網';
+        const BROADCAST = 'MOMOTV、博斯運動二台、TPBL 官方 YouTube';
         const TAGS = '#TPBL #蝦皮購物 #PRESEASON #TPBL熱身賽 #開箱新十力';
         const GAMEDAY_TAGS = '#TPBL #蝦皮購物 #TPBL熱身賽 #moltentaiwan #競技麻將2';
-        const YOUTUBE_DESCRIPTION = 'TPBL Official Website ◼ https://tpbl.basketball/\nTPBL  IG ◼ https://www.instagram.com/tpbl.tw/\nTPBL FB ◼ https://www.facebook.com/TPBL.Basketball\n\n💥蝦皮VIP 應援熱身賽！抽傳說對決10週年大巨蛋演唱會門票，帶你去看葉舒華、MINNIE\n連結：https://sho.pe/9mu4rf\n\n#TPBL #FORREAL #來真的 #開箱新十力 #TPBL季前熱身賽 #蝦皮購物';
+        const YOUTUBE_DESCRIPTION = "TPBL Official Website ◼︎ https://tpbl.basketball/\nTPBL  IG ◼︎   / tpbl.tw  \nTPBL FB ◼︎   / tpbl.basketball  \n\n💥 蝦皮 VIP 享全賽季主場商品部限量 9 折\nhttps://sho.pe/9mu52f\n\n💥 阿根廷足球隊官方夥伴—全球知名記憶體品牌雷克沙\nhttps://www.lexar.com/zh-hant/\n\n💥 決勝時刻，挺身而出 💥\n【 Backbone 椎座工學 ｜台灣No.1人體工學品牌 】\n人體工學椅 👉 https://lihi3.me/F5q9Z\n電動升降桌 👉 https://lihi3.me/mQkvq\n做場下最扎實的後盾，挺你每個關鍵瞬間 💪🏻\n\n\n#TPBL #FORREAL #來真的 #開箱新十力 #TPBL季前熱身賽 #蝦皮購物";
         const STORAGE_PREFIX = 'tpbl_preseason_2026_27_v1_';
         const TITLES = { today_preview: '今日賽事預告', game_highlight: '本場賽事精華', final_score: '終場比分', potg: '單場最佳球員', youtube_highlight: 'YouTube 全場精華' };
         let currentMode = 'today_preview';
@@ -228,7 +228,10 @@
                 if (typeof data.game_select === 'string') game.value = data.game_select;
                 Object.entries(data).forEach(([id,value]) => {
                     const el = document.getElementById(id);
-                    if (el && id !== 'game_select' && !el.readOnly && typeof value === 'string') el.value = value;
+                    if (el && id !== 'game_select' && !el.readOnly && typeof value === 'string') {
+                        const oldBroadcast = 'MOMOTV、博斯運動二台、TPBL 官方 YouTube、DAZN、緯來電視網';
+                        el.value = id.endsWith('_broadcast') && value === oldBroadcast ? BROADCAST : value;
+                    }
                 });
             } catch {}
         }
